@@ -17,11 +17,6 @@
 - 规则持久化在 `chrome.storage.local`,浏览器重启仍生效
 
 ## 安装
-
-```bash
-git clone <repo>
-```
-
 1. 打开 `chrome://extensions/`
 2. 右上角打开"开发者模式"
 3. 点击"加载已解压的扩展程序",选择 `clear_site_cache_extension/` 目录
