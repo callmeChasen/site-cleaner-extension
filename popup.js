@@ -200,7 +200,7 @@ document.getElementById('clearBtn').addEventListener('click', async () => {
 loadTabs();
 
 /* ==================== Header 规则管理 ==================== */
-// 规则结构: { id, enabled, header, operation: 'set'|'append'|'remove', value }
+// 规则结构: { id, enabled, header, operation: 'set'|'remove', value }
 // 全局结构: { enabled, urlFilter, rules: [...] }
 
 const HR_STORAGE_KEY = 'headerRules';
@@ -215,6 +215,10 @@ async function loadHeaderRules() {
     const data = await chrome.storage.local.get(HR_STORAGE_KEY);
     hrState = { ...DEFAULT_HR, ...(data[HR_STORAGE_KEY] || {}) };
     if (!Array.isArray(hrState.rules)) hrState.rules = [];
+    // 兼容旧数据:历史 append 规则迁移为 set
+    hrState.rules.forEach(r => {
+        if (r.operation === 'append') r.operation = 'set';
+    });
     document.getElementById('hrFilter').value = hrState.urlFilter || '';
     updatePlayButton();
     renderHeaderRules();
@@ -320,7 +324,7 @@ function renderHeaderRules() {
         // 菜单挂到 body 避免被裁剪/覆盖
         const opMenu = document.createElement('div');
         opMenu.className = 'op-menu hidden';
-        ['set', 'append', 'remove'].forEach(v => {
+        ['set', 'remove'].forEach(v => {
             const item = document.createElement('div');
             item.className = 'op-item' + (rule.operation === v ? ' active' : '');
             item.textContent = v;

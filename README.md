@@ -11,7 +11,7 @@
 - 清理后可选自动刷新
 
 ### 请求 Header 修改
-- 支持 `set` / `append` / `remove` 三种操作
+- 支持 `set` / `remove` 两种操作
 - URL 过滤(子串匹配),空则匹配全部请求
 - 多条规则同时启用,基于 `chrome.declarativeNetRequest` 动态规则
 - 规则持久化在 `chrome.storage.local`,浏览器重启仍生效
@@ -31,14 +31,6 @@ clear_site_cache_extension/
 ├── background.js     # Service Worker(目前仅安装钩子)
 └── icons/            # 16/48/128 图标
 ```
-
-## 关键技术点
-
-- **MV3 service worker**: 后台逻辑最小化,核心交互在 popup
-- **declarativeNetRequest dynamicRules**: 用 `modifyHeaders` action 实现 set/append/remove
-- **storage.local**: 规则持久化,popup 关闭不影响生效
-- **自定义下拉**: 替换原生 `<select>`,用 portal 到 `body` + `position: fixed` 解决滚动容器裁剪问题
-- **debounced save**: 输入框 `input` 事件 + 250ms 防抖,边输入边保存,避免失焦才保存导致丢失
 
 ## 权限说明
 
