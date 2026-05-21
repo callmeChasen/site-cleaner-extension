@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "清除当前网站缓存",
+  "version": "1.1.0",
+  "description": "一键清除当前打开网页的缓存、Cookie、LocalStorage 等所有数据；支持请求 Header 修改",
+  "permissions": [
+    "browsingData",
+    "tabs",
+    "activeTab",
+    "scripting",
+    "storage",
+    "declarativeNetRequest"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "清除当前网站缓存",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
